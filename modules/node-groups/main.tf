@@ -83,18 +83,18 @@ resource "aws_launch_template" "node_group" {
   key_name = var.key_name
   
   # 인스턴스 프로파일 설정을 위한 IAM 역할 연결
-  iam_instance_profile {
-    name = aws_iam_instance_profile.node_group.name
-  }
+  #  iam_instance_profile {
+    #    name = aws_iam_instance_profile.node_group.name
+    #  }
   
   tags = var.tags
 }
 
 # 4. 노드 인스턴스 프로파일 생성
-resource "aws_iam_instance_profile" "node_group" {
-  name = "${var.cluster_name}-node-instance-profile"
-  role = aws_iam_role.node_group.name
-}
+#resource "aws_iam_instance_profile" "node_group" {
+#  name = "${var.cluster_name}-node-instance-profile"
+#  role = aws_iam_role.node_group.name
+#}
 
 # 5. EKS 관리형 노드 그룹 생성
 resource "aws_eks_node_group" "this" {
