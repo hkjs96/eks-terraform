@@ -7,36 +7,43 @@ variable "region" {
 variable "project_name" {
   description = "프로젝트 이름"
   type        = string
+  default     = "eks-demo"
 }
 
 variable "environment" {
   description = "환경 (dev, staging, production)"
   type        = string
+  default     = "dev"
 }
 
 variable "vpc_cidr" {
   description = "VPC CIDR 블록"
   type        = string
+  default     = "10.0.0.0/16"
 }
 
 variable "azs" {
   description = "가용 영역 목록"
   type        = list(string)
+  default     = ["ap-northeast-2a", "ap-northeast-2c"]
 }
 
 variable "private_subnets" {
   description = "프라이빗 서브넷 CIDR 목록"
   type        = list(string)
+  default     = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
 }
 
 variable "public_subnets" {
   description = "퍼블릭 서브넷 CIDR 목록"
   type        = list(string)
+  default     = ["10.0.101.0/24", "10.0.102.0/24", "10.0.103.0/24"]
 }
 
 variable "cluster_name" {
   description = "EKS 클러스터 이름"
   type        = string
+  default     = "eks-demo-cluster"
 }
 
 variable "cluster_version" {
@@ -66,15 +73,10 @@ variable "cluster_endpoint_public_access_cidrs" {
 variable "tags" {
   description = "리소스에 적용할 태그"
   type        = map(string)
-  default     = {}
-}
-
-variable "extra_user_arn" {
-  description = "추가 클러스터 접근을 위한 IAM 사용자 ARN"
-  type        = string
-}
-
-variable "extra_username" {
-  description = "추가 클러스터 접근을 위한 IAM 사용자 이름"
-  type        = string
+  default     = {
+    "Environment" = "dev"
+    "ManagedBy"   = "terraform"
+    "Owner"       = "devops-team"
+    "Project"     = "eks-demo"
+  }
 }

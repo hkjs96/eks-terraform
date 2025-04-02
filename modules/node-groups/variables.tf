@@ -8,6 +8,11 @@ variable "cluster_endpoint" {
   type        = string
 }
 
+variable "cluster_auth_base64" {
+  description = "EKS 클러스터 CA 인증서 (base64 인코딩)"
+  type        = string
+}
+
 variable "node_group_name" {
   description = "노드 그룹 이름"
   type        = string
@@ -22,6 +27,18 @@ variable "disk_size" {
   description = "노드 디스크 크기(GB)"
   type        = number
   default     = 20
+}
+
+variable "instance_types" {
+  description = "노드 인스턴스 타입 목록"
+  type        = list(string)
+  default     = ["t3.medium"]
+}
+
+variable "capacity_type" {
+  description = "노드 그룹 용량 타입 (ON_DEMAND 또는 SPOT)"
+  type        = string
+  default     = "ON_DEMAND"
 }
 
 variable "desired_capacity" {
@@ -72,26 +89,30 @@ variable "node_labels" {
   default     = {}
 }
 
-variable "node_taint_key" {
-  description = "노드 테인트 키"
-  type        = string
-  default     = ""
-}
-
-variable "node_taint_value" {
-  description = "노드 테인트 값"
-  type        = string
-  default     = ""
-}
-
-variable "node_taint_effect" {
-  description = "노드 테인트 효과"
-  type        = string
-  default     = ""
+variable "node_taints" {
+  description = "노드에 적용할 쿠버네티스 테인트"
+  type        = list(object({
+    key    = string
+    value  = string
+    effect = string
+  }))
+  default     = []
 }
 
 variable "tags" {
   description = "리소스에 적용할 태그"
   type        = map(string)
   default     = {}
+}
+
+# 새로 추가된 변수들
+variable "cluster_security_group_id" {
+  description = "EKS 클러스터 보안 그룹 ID"
+  type        = string
+}
+
+variable "environment" {
+  description = "환경 (dev, staging, production)"
+  type        = string
+  default     = "dev"
 }
