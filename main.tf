@@ -104,7 +104,7 @@ module "eks_node_groups" {
   node_group_name          = "${var.cluster_name}-nodes"
   
   # 서브넷 ID 전달
-  subnet_ids              = module.vpc.public_subnets  # 퍼블릭 서브넷으로 변경
+  subnet_ids              = module.vpc.private_subnets  # 프라이빗 서브넷
   
   disk_size         = 100
   instance_types    = var.environment == "production" ? ["m5.2xlarge"] : ["t3.medium"]
