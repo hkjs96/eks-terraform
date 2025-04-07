@@ -1,8 +1,0 @@
-# aws-auth-patch.yaml
-data: 
-  mapUsers: |
-    - userarn: arn:aws:iam::560412178918:user/bakjisu
-      username: bakjisu
-      groups:
-        - system:masters
-
