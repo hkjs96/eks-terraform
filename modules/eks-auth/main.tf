@@ -1,17 +1,5 @@
-# EKS 클러스터 정보 가져오기
-data "aws_eks_cluster" "cluster" {
-  name = var.cluster_name
-}
-
 data "aws_eks_cluster_auth" "cluster" {
-  name = var.cluster_name
-}
-
-# Kubernetes 프로바이더 구성 - EKS 클러스터의 정보를 사용하여 설정
-provider "kubernetes" {
-  host                   = data.aws_eks_cluster.cluster.endpoint
-  cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority[0].data)
-  token                  = data.aws_eks_cluster_auth.cluster.token
+  name = var.cluster_id
 }
 
 # 현재 AWS 호출자 아이덴티티 가져오기
@@ -29,7 +17,7 @@ resource "kubernetes_config_map" "aws_auth" {
   data = {
     mapRoles = yamlencode([
       {
-        rolearn  = module.eks_node_groups.node_group_role_arn
+        rolearn  = var.node_group_role_arn
         username = "system:node:{{EC2PrivateDNSName}}"
         groups   = ["system:bootstrappers", "system:nodes"]
       },
@@ -50,11 +38,6 @@ resource "kubernetes_config_map" "aws_auth" {
       }
     ])
   }
-
-  depends_on = [
-    module.eks_cluster,
-    module.eks_node_groups
-  ]
 }
 
 # 클러스터 관리자 역할 바인딩 생성

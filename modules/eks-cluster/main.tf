@@ -18,6 +18,7 @@ resource "aws_kms_key" "eks" {
 }
 
 # EKS 클러스터 보안 그룹
+## https://docs.aws.amazon.com/ko_kr/eks/latest/userguide/sec-group-reqs.html
 resource "aws_security_group" "cluster" {
   name        = "${var.cluster_name}-cluster-sg"
   description = "Cluster security group for ${var.cluster_name} EKS cluster"
@@ -25,9 +26,9 @@ resource "aws_security_group" "cluster" {
 
   tags = merge(
     var.tags,
-    {
-      "Name" = "${var.cluster_name}-cluster-sg"
-    }
+    # {
+    #   "Name" = "${var.cluster_name}-cluster-sg",
+    # }
   )
 }
 

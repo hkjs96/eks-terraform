@@ -68,13 +68,3 @@ variable "tags" {
   type        = map(string)
   default     = {}
 }
-
-variable "extra_user_arn" {
-  description = "추가 클러스터 접근을 위한 IAM 사용자 ARN"
-  type        = string
-}
-
-variable "extra_username" {
-  description = "추가 클러스터 접근을 위한 IAM 사용자 이름"
-  type        = string
-}
