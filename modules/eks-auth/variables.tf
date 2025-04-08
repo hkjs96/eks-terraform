@@ -28,11 +28,9 @@ variable "depends_on_resources" {
 variable "extra_user_arn" {
   description = "추가 클러스터 접근을 위한 IAM 사용자 ARN"
   type        = string
-  default     = "arn:aws:iam::560412178918:user/bakjisu"
 }
 
 variable "extra_username" {
   description = "추가 클러스터 접근을 위한 IAM 사용자 이름"
   type        = string
-  default     = "bakjisu"
 }
